@@ -1,0 +1,106 @@
+import datetime
+d = datetime.datetime.now()
+date= d.strftime("%d")
+month= d.strftime("%m")
+year = d.strftime("%Y")
+print("Welcome to Online Admin Portal")
+print("*"*26)
+print("""Admin Options
+**************************
+1:Add Product in Stock
+2:Update Product in Stock
+3:Remove Product from Stock
+4:View All Products in Stock
+5:Logout Admin
+**************************""")
+stock_list= {}
+option=int(input("Enter Your Choice:"))
+while option!=0 :
+    if option==1:
+        product=input("Enter the Product Name:")
+        price=int(input("Enter the Product Price:"))
+        stock_list[product]=price
+    elif option==2:
+        product=input("Enter the Product Name ,You Want to be Update:")
+        price = int(input("Enter the Updated Product Price:"))
+        stock_list[product]=price
+    elif option==3:
+        product=input("Enter the Product Name ,You Want to Remove:")
+        del stock_list[product]
+    elif option==4:
+        for product, price in stock_list.items():
+            print(product, price)
+    elif option==5:
+        break
+    elif option!=0:
+        print("You Did not enter a valid number...")
+    option = int(input("Enter Your Choice:"))
+print("Welcome to Online Consumer Portal")
+print("*" * 26)
+shopping_busket ={}
+shopping=True
+while shopping:
+    print("""Consumer Options
+    **************************
+    1:View All Products in Stock
+    2:Add to shopping basket
+    3:View All product of basket
+    4:Search product in Stock
+    5:Remove product from basket
+    6:print invoice
+    7:Signout
+    **************************""")
+    option=int(input("Enter Your Choice:"))
+    while option!=0 :
+        if option==1:
+            for product, price in stock_list.items():
+                print(product, price)
+        elif option==2:
+            item=input("Enter an item:")
+            if item in stock_list.keys():
+                qnty=int(input("enter the quantity:"))
+                shopping_busket[item]=qnty
+            else:
+                print("Out of Stock")
+        elif option==3:
+            for item,qnty in shopping_busket.items():
+                print(item,qnty)
+        elif option == 4:
+            item = input("Type Search Product")
+            if item in stock_list.keys():
+                print("item is available")
+            else:
+                print("item is not available ")
+        elif option==5:
+            item=input("enter an item:")
+            del(shopping_busket[item])
+        elif option==6:
+            print("|=====Generating invoice=====|")
+            print("*" * 30)
+            print("Date:", d.strftime("%x"))
+            print("Time:", d.strftime("%X"))
+            print("*" * 30)
+            print("|Name====quantity=price=total|")
+            sum=0
+            for x,y in shopping_busket.items():
+                print("%s || %-10d || %d"%(x,y,y*stock_list[x]))
+                sum=sum+y*stock_list[x]
+            print("*"*30)
+            print("Grand Total is %d"%(sum))
+            print("*" * 30)
+            print("Thank You Shopping With Us")
+            print("*" * 30)
+        elif option==7:
+            break
+        elif option!=0:
+            print("You Did not enter a valid number")
+        option=int(input("Enter an option:"))
+    shopping=input("Do You Want Shop Again yes or no")
+    if shopping == "no":
+        break
+print("*" * 30)
+print("Software is Terminating")
+print("*" * 30)
+print("Developed By Shivam Maheshwari")
+print("Developed At IIT Kanpur")
+print("*" * 30)
